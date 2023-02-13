@@ -8,9 +8,9 @@
 </div>
 <div class="items-container">
     {% for item in item_list %}
-    <div>test1</div>
+    <div>{{item.name}} <a href= "{% url 'trade_create' item.id %}">Trade</a></div>
     {% empty %}
-    <div>test2</div>
+    <div>no item</div>
     {% endfor%}
 </div>
 
