@@ -15,8 +15,8 @@
     {% endif %}
 
     {% if trade.item_primary.user == user %}
-    <div><a>Approve</a><a>Reject</a></div>
-    {% else %}
+    <div><a href="{% url 'trade_approve' trade.id %}">Approve</a><a href="{% url 'trade_reject' trade.id %}">Reject</a></div>
+    {% elif trade.item_proposed.user == user %}
     <div><a href="{% url 'trade_delete' trade.id %}">Withdraw Trade</a></div>
     {% endif %}
 </div>
