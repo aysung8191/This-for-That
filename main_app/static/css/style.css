@@ -1,0 +1,185 @@
+/* not currently using */
+@font-face {
+    font-family: 'halyard-micro';
+    src: URL('../fonts/halyard\ micro.otf') format('opentype');
+}
+/* not currently using */
+@font-face {
+    font-family: 'halyard-micro-b';
+    src: URL('../fonts/halyard\ micro\ bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'halyard-micro-SB';
+    src: URL('../fonts/halyard\ micro\ semibold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'halyard-micro-SB-I';
+    src: URL('../fonts/halyard\ micro\ semibold\ italic.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'space-mono';
+    src: URL('../fonts/space\ mono.otf') format('opentype');
+}
+
+:root {
+    --dark-green: rgb(25,64,38);
+    --cream: rgb(255,246,237);
+    --lavender:  rgb(232, 225, 253);
+    --chartreuse: rgb(239,244,131);
+}
+
+body {
+    font-family: space-mono;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    font-family: halyard-micro-SB;
+    color: var(--dark-green)
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 20vh;
+    width: 100%;
+    background-color: var(--chartreuse);
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.center-full-pg {
+    height: 100vh;
+    align-items: center;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    z-index: -1;   
+    box-sizing: border-box;
+}
+
+.block-container-30 {
+    width: 30%;
+}
+
+.btn {
+    font-family: 'space-mono';
+    color: white;
+    padding: 15px 50px;
+    border-radius: 30px;
+    border: none;
+    width: 33% !important;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: .75;
+}
+
+.dark-grn-bckgrnd {
+    background-color: var(--dark-green);
+}
+
+.hy-sm-i {
+    font-family: halyard-micro-SB-I;
+}
+
+.nav-bar, .nav-left, .nav-right {
+    display: flex;
+}
+
+.nav-left, .nav-center, .nav-right { 
+    width: 33%;
+}
+
+.nav-bar {
+    justify-content: space-between;
+    align-items: center;    
+    padding: 0 50px;
+    color: var(--dark-green);
+    background-color: inherit;
+}
+
+.nav-left > div:not(:last-child) {
+    margin-right: 35px;
+}
+
+.nav-center {
+    font-family: halyard-micro-SB;
+    font-size: 50px;
+    text-align: center;
+}
+
+.nav-right {
+    justify-content: end;
+}
+
+.nav-right > div:not(:first-child) {
+    margin-left:35px;
+}
+
+.registration {
+    background-color: var(--lavender);
+}
+
+.login-form input {
+    padding: 1.4rem 2rem;
+    line-height: 1.2rem;
+    letter-spacing: 0.1em;
+    font-family: inherit;
+    border: 2px solid rgb(224,224,224);
+    width: 80%;
+}
+
+.login-form span {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.home {
+    background-color: var(--lavender);
+}
+
+.tab-container {
+    height: 10rem;
+    background: var(--cream);
+    display: flex;
+    align-items: end;
+}
+
+.tab-text {
+    padding-left:50px;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    background-color: var(--lavender);
+    border-top-right-radius: 80px 80px;
+    width: 20%;
+}
+
+.items-index {
+    background-color: var(--cream);
+}
+
+.items-container {
+    background-color: var(--lavender);
+    padding: 50px;
+    min-height: 50vh;
+}
+
