@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 TRADE_STATUS=(
@@ -15,6 +16,9 @@ class Item(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('items_myitems')
     
 class Trade(models.Model):
     item_primary=models.ForeignKey(Item, related_name="trade_primary", on_delete=models.CASCADE)

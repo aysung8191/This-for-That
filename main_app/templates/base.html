@@ -14,7 +14,7 @@
         <div class="nav-left">
             <div><a href="{% url 'index' %}">community</a></div>
         {% if user.is_authenticated %}
-            <div><a href="#">mine</a></div>
+            <div><a href="{% url 'items_myitems' %}">my items</a></div>
         {% endif %}
         </div>
         <div class="nav-center">
