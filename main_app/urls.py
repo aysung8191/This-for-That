@@ -12,6 +12,8 @@ urlpatterns = [
     path('trades/', views.TradeList.as_view(), name='trades_index' ),
     path('trades/<int:pk>', views.TradeDetail.as_view(), name='trade_detail'),
     path('trades/create/<int:item_id>',views.TradeCreate.as_view(), name ='trade_create'),
+    path('trades/<int:trade_id>/approve/', views.trade_approve, name = 'trade_approve'),
+    path('trades/<int:trade_id>/reject/', views.trade_reject, name = 'trade_reject'),
     path('trades/<int:pk>/delete/', views.TradeDelete.as_view(), name='trade_delete'),
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/login/', views.Login.as_view()),

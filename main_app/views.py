@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -65,6 +66,18 @@ class TradeList(LoginRequiredMixin, ListView):
 class TradeDelete(LoginRequiredMixin, DeleteView):
   model = Trade
   success_url = '/trades'
+
+def trade_approve(request, trade_id):
+  trade = Trade.objects.get(id=trade_id)
+  trade.status = '2'
+  trade.save()
+  return redirect('trades_index')
+
+def trade_reject(request, trade_id):
+  trade = Trade.objects.get(id=trade_id)
+  trade.status = '3'
+  trade.save()
+  return redirect('trades_index')
 
 def signup(request):
   error_message = ''
