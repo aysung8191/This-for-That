@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Item
 from .forms import UserSignUpForm, UserLoginForm
 
@@ -12,6 +14,30 @@ def index(request):
 
 class ItemsList(ListView):
   model = Item
+
+class MyItemsList(ListView):
+  model = Item
+  template_name = 'items/my_items.html'
+  def get_context_data(self, **kwargs):
+        context = super(MyItemsList, self).get_context_data(**kwargs)
+        context['items'] = Item.objects.filter(user = self.request.user)
+        return context
+  
+class ItemCreate(LoginRequiredMixin, CreateView):
+  model = Item
+  fields = ['name', 'description']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+  
+class ItemUpdate(LoginRequiredMixin, UpdateView):
+  model = Item
+  fields = ['name', 'description']
+
+class ItemDelete(LoginRequiredMixin, DeleteView):
+  model = Item
+  success_url = '/items/myitems'
 
 def signup(request):
   error_message = ''
