@@ -1,8 +1,17 @@
-<h1>Sign Up</h1>
+{% extends 'base.html' %}
+{% block title %}<title>sign up</title>{% endblock %}
+{% block bodytag %} class='registration' {% endblock %}
+{% block content %}
 
-<form method="POST" action="{% url 'signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="hidden" name="next" value="{{ next }}">
-    <button type="submit">Sign Up</button>
-</form>
+<div class="center-container center-full-pg">
+    <div class="block-container-30 center">
+        <form method="POST" action="{% url 'signup' %}" class="login-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}">
+            <input type="submit" value="SIGN UP" class="btn dark-grn-bckgrnd ">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
