@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}<title>Confirm Trade Withdraw</title>{% endblock %}
+{% block content %}
+  <h1>Withdraw Trade</h1>
+
+  <h4>Are you sure you want to withdraw the {{ trade }}? This action is final and cannot be undone</h4>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes - Withdraw!">
+    <a href="{% url 'trade_detail' trade.id %}">Cancel</a>
+  </form>
+{% endblock %}

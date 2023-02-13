@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Item, Trade
-from .forms import UserSignUpForm, UserLoginForm
+from .forms import UserSignUpForm, UserLoginForm, TradeForm
 
 
 def index(request):
@@ -39,13 +39,32 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
   model = Item
   success_url = '/items/myitems'
 
+class TradeDetail(LoginRequiredMixin, DetailView):
+  model = Trade
+
 class TradeCreate(LoginRequiredMixin, CreateView):
   model = Trade
-  fields = ['item_proposed', 'comment' , 'status']
+  form_class = TradeForm
+
+  def get_form_kwargs(self):
+    kwargs = super(TradeCreate, self).get_form_kwargs()
+    kwargs['user'] = self.request.user
+    return kwargs
+
+  def dispatch(self, request, *args, **kwargs):
+    self.item_primary = get_object_or_404(Item, pk=kwargs['item_id'])
+    return super().dispatch(request, *args, **kwargs)
 
   def form_valid(self, form):
-    form.instance.item_primary = self.request.user
+    form.instance.item_primary = self.item_primary
     return super().form_valid(form)
+
+class TradeList(LoginRequiredMixin, ListView):
+  model = Trade
+
+class TradeDelete(LoginRequiredMixin, DeleteView):
+  model = Trade
+  success_url = '/trades'
 
 def signup(request):
   error_message = ''

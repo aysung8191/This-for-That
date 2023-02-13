@@ -41,7 +41,10 @@ class Trade(models.Model):
         default=TRADE_STATUS[0][0]
     )
     def __str__(self):
-        return f"trade {self.primary_item} for {self.proposed_item}"
+        return f"trade {self.item_primary} for {self.item_proposed}"
+
+    def get_absolute_url(self):
+        return reverse('trades_index')
     
 
     
