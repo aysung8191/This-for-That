@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Item
+from .models import Item, Trade
 from .forms import UserSignUpForm, UserLoginForm
 
 
@@ -15,7 +15,7 @@ def index(request):
 class ItemsList(ListView):
   model = Item
 
-class MyItemsList(ListView):
+class MyItemsList(LoginRequiredMixin,ListView):
   model = Item
   template_name = 'items/my_items.html'
   def get_context_data(self, **kwargs):
@@ -38,6 +38,14 @@ class ItemUpdate(LoginRequiredMixin, UpdateView):
 class ItemDelete(LoginRequiredMixin, DeleteView):
   model = Item
   success_url = '/items/myitems'
+
+class TradeCreate(LoginRequiredMixin, CreateView):
+  model = Trade
+  fields = ['item_proposed', 'comment' , 'status']
+
+  def form_valid(self, form):
+    form.instance.item_primary = self.request.user
+    return super().form_valid(form)
 
 def signup(request):
   error_message = ''

@@ -7,7 +7,7 @@
     <div class="tab-text"><h1>My Items</h1></div>
 </div>
 <div class="items-container">
-    {% for item in item_list %}
+    {% for item in items %}
     <div>{{item}}<a href="{% url 'item_update' item.id %}">edit</a><a href="{% url 'item_delete' item.id %}">delete</a></div>
     {% empty %}
     <div>No Items</div>
