@@ -14,6 +14,7 @@
         <div class="nav-left">
             <div><a href="{% url 'index' %}">community</a></div>
         {% if user.is_authenticated %}
+            <div><a href="{% url 'trades_index' %}">all trades</a></div>
             <div><a href="{% url 'items_myitems' %}">my items</a></div>
         {% endif %}
         </div>

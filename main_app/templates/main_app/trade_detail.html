@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}<title>trade details</title>{% endblock %}
+{% block bodytag %} class="items-index" {% endblock %}
+{% block content %}
+
+<div class="tab-container">
+    <div class="tab-text"><h1>{{trade}}</h1></div>
+</div>
+<div class="items-container">
+    <div>Trade Initiated on: {{trade.item_primary}} (item posted by {{trade.item_primary.user}})</div>
+    <div>Initiated By: {{trade.item_proposed.user}}</div>
+    <div>Proposed Trade Item: {{trade.item_proposed}} </div>
+    {% if trade.comment %}
+    <div>{{trade.comment}}</div>
+    {% endif %}
+
+    {% if trade.item_primary.user == user %}
+    <div><a>Approve</a><a>Reject</a></div>
+    {% else %}
+    <div><a href="{% url 'trade_delete' trade.id %}">Withdraw Trade</a></div>
+    {% endif %}
+</div>
+
+
+<footer></footer>
+
+{% endblock %}
