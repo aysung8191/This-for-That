@@ -62,17 +62,28 @@ class TradeCreate(LoginRequiredMixin, CreateView):
 
 class TradeList(LoginRequiredMixin, ListView):
   model = Trade
+  def get_context_data(self, **kwargs):
+    context = super(TradeList, self).get_context_data(**kwargs)
+    trades = []
+    for trade in Trade.objects.all():
+      if trade.item_primary.user == self.request.user or trade.item_proposed.user == self.request.user:
+        trades.append(trade)
+    context['trade_list'] = trades
+    return context
+
 
 class TradeDelete(LoginRequiredMixin, DeleteView):
   model = Trade
   success_url = '/trades'
 
+@login_required
 def trade_approve(request, trade_id):
   trade = Trade.objects.get(id=trade_id)
   trade.status = '2'
   trade.save()
   return redirect('trades_index')
 
+@login_required
 def trade_reject(request, trade_id):
   trade = Trade.objects.get(id=trade_id)
   trade.status = '3'
