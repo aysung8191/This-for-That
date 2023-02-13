@@ -40,6 +40,10 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
   model = Item
   success_url = '/items/myitems'
 
+class ItemDetail(DetailView):
+  model= Item
+  
+
 class TradeDetail(LoginRequiredMixin, DetailView):
   model = Trade
 

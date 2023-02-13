@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}<title>Item Detail</title>{% endblock %}
+{% block bodytag %} class="items-index" {% endblock %}
+{% block content %}
+
+<div class="tab-container">
+    <div class="tab-text"><h1>{{item.name}}</h1></div>
+</div>
+<div class="items-container">
+   <div>
+    {{item.get_status_display}}
+   </div>
+   <div>
+    {{item.description}}
+   </div>
+</div>
+
+
+<footer></footer>
+
+{% endblock %}

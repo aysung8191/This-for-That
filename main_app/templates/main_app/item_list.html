@@ -8,7 +8,7 @@
 </div>
 <div class="items-container">
     {% for item in item_list %}
-    <div>{{item.name}} 
+    <div><a href="{% url 'item_detail' item.id %}">{{item.name}} </a>
         {% if not item.user == user %}
         <a href= "{% url 'trade_create' item.id %}">Trade</a>
         {% endif %}
