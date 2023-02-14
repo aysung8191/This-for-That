@@ -1,16 +1,61 @@
 {% extends 'base.html' %}
 {% block title %}<title>trade history</title>{% endblock %}
+{% block bodytag %} class="items-index" {% endblock %}
 {% block content %}
 
 <div class="tab-container">
-    <div class="tab-text"><h1>TRADE HISTORY</h1></div>
+    <div class="tab-text"><h1>PENDING TRADES</h1></div>
 </div>
 <div class="items-container">
     {% for trade in trade_list %}
-    <div><a href="{% url 'trade_detail' trade.id %}">{{trade}}</a> - {{trade.get_status_display}}</div>
-    {% empty %}
-    <div>no trades</div>
-    {% endfor%}
+    <div class="trade-in-progress">
+        <div>Item I'm Getting: 
+            {% if trade.item_primary.user == user %} 
+                <a href="{% url 'item_detail' trade.item_proposed.id %}" class="decorate-anchor">{{trade.item_proposed}} </a>
+            {% else %} 
+                <a href="{% url 'item_detail' trade.item_primary.id %}" class="decorate-anchor">{{trade.item_primary}} </a>
+            {% endif %}
+        </div>
+        <div> Item I'm Giving:
+            {% if trade.item_proposed.user == user %} 
+            <a href="{% url 'item_detail' trade.item_proposed.id %}" class="decorate-anchor">{{trade.item_proposed}} </a>
+            {% else %} 
+            <a href="{% url 'item_detail' trade.item_primary.id %}" class="decorate-anchor">{{trade.item_primary}} </a>
+            {% endif %}
+        </div>
+        <div> Action Pending: 
+            {% if trade.item_primary.user == user %} 
+                <a href="{% url 'trade_detail' trade.id %}" class="decorate-anchor">you- click here to review and approve or reject this trade</a>
+            {% else %}
+                {{trade.item_primary.user}}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="trades-container">
+    <h1>COMPLETED TRADES</h1>
+</div>
+<div class="trades-container">
+    {% for trade in trade_list %}
+    <div class="trade-done">
+        <div>What I Got: 
+            {% if trade.item_primary.user == user %} 
+                <a href="{% url 'item_detail' trade.item_proposed.id %}" class="decorate-anchor">{{trade.item_proposed}} </a>
+            {% else %} 
+                <a href="{% url 'item_detail' trade.item_primary.id %}" class="decorate-anchor">{{trade.item_primary}} </a>
+            {% endif %}
+        </div>
+        <div> What I Gave:
+            {% if trade.item_proposed.user == user %} 
+            <a href="{% url 'item_detail' trade.item_proposed.id %}" class="decorate-anchor">{{trade.item_proposed}} </a>
+            {% else %} 
+            <a href="{% url 'item_detail' trade.item_primary.id %}" class="decorate-anchor">{{trade.item_primary}} </a>
+            {% endif %}
+        </div>
+        <div> <a href="{% url 'trade_detail' trade.id %}" class="decorate-anchor">click to see trade details</a> </div>
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
