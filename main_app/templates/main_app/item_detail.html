@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="item-right">
-        {% if curtrade %}
+        {% if primarytrades.count %}
         <div class="marquee">
             <ul class="marquee-content">
                 <li>trade in progress</li>
@@ -26,23 +26,25 @@
             <div>{{item.description}}</div>
         </div>
         <div class="item-btns">
-            {% if item.user == user %}
-                {% if curtrade %}
-                    <div class="item-detail-curtrade-detail">
-                        <div>Trade Initiated By: {{curtrade.item_proposed.user}}</div>
-                        <div>Trade For: <a href="{% url 'item_detail' curtrade.item_proposed.id%}" class="decorate-anchor">{{curtrade.item_proposed}}</a></div>
-                        <div>Comments: {% if curtrade.comment %} {{curtrade.comment}} {% else %} no comment {% endif%}</div>
-                    </div>
-
-                    <div class="btn-container"><a href="{% url 'trade_approve' curtrade.id %}"><div class="btn dark-grn-bckgrnd">APPROVE TRADE</div></a></div>
-                    <div class="btn-container"><a href="{% url 'trade_reject' curtrade.id %}"><div class="btn dark-grn-bckgrnd">REJECT TRADE</div></a></div>
-                {% else %}
-                    <div class="btn-container"><a href="{% url 'item_update' item.id %}"><div class="btn dark-grn-bckgrnd">EDIT</div></a></div>
-                    <div class="btn-container"><a href="{% url 'item_delete' item.id %}"><div class="btn dark-grn-bckgrnd">DELETE</div></a></div>
+            {% for trade in primarytrades %}
+            <div class="item-detail-curtrade-detail">
+                <div>Trade Initiated By: {{trade.item_proposed.user}}</div>
+                <div>Trade For: <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed}}</a></div>
+                <div>Comments: {% if trade.comment %} {{trade.comment}} {% else %} no comment {% endif%}</div>
+            </div>
+                {% if item.user == user %}
+                <div class="btn-container"><a href="{% url 'trade_approve' trade.id %}"><div class="btn dark-grn-bckgrnd">APPROVE TRADE</div></a></div>
+                <div class="btn-container"><a href="{% url 'trade_reject' trade.id %}"><div class="btn dark-grn-bckgrnd">REJECT TRADE</div></a></div>
                 {% endif %}
-            {% else %}
+            {% empty %}
+                {% if item.user == user %}
+                <div class="btn-container"><a href="{% url 'item_update' item.id %}"><div class="btn dark-grn-bckgrnd">EDIT</div></a></div>
+                <div class="btn-container"><a href="{% url 'item_delete' item.id %}"><div class="btn dark-grn-bckgrnd">DELETE</div></a></div>
+                {% endif %}
+            {% endfor %}
+                {% if not item.user == user %}
                 <div class="btn-container"><a href="{% url 'trade_create' item.id %}"><div class="btn dark-grn-bckgrnd">TRADE FOR THIS ITEM</div></a></div>
-            {% endif %}
+                {% endif %}
         </div>
     </div>
 </div>
