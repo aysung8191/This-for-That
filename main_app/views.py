@@ -55,15 +55,11 @@ class ItemDetail(DetailView):
   model= Item
 
   def dispatch(self, request, *args, **kwargs):
-    try:
-      self.primary_trades = Trade.objects.filter(item_primary=kwargs['pk'])
-    except:
-      self.primary_trades = ''
+    self.primary_trades = Trade.objects.filter(item_primary=kwargs['pk'])
     return super().dispatch(request, *args, **kwargs)
 
   def get_context_data(self, **kwargs):
     context = super(ItemDetail, self).get_context_data(**kwargs)
-    print(self.primary_trades)
     context['primarytrades'] = self.primary_trades
     return context  
 
