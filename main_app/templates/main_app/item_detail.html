@@ -1,21 +1,50 @@
 {% extends 'base.html' %}
 {% block title %}<title>Item Detail</title>{% endblock %}
-{% block bodytag %} class="items-index" {% endblock %}
+{% block bodytag %} class="home" {% endblock %}
 {% block content %}
 
-<div class="tab-container">
-    <div class="tab-text"><h1>{{item.name}}</h1></div>
-</div>
-<div class="items-container">
-   <div>
-    {{item.get_status_display}}
-   </div>
-   <div>
-    {{item.description}}
-   </div>
-</div>
+<div class="item-detail-container flex">
+    <div class="item-left">
+        <div class="item-detail-img-container center-container">
+            <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
+        </div>
+    </div>
+    <div class="item-right">
+        {% if curtrade %}
+        <div class="marquee">
+            <ul class="marquee-content">
+                <li>trade in progress</li>
+            </ul>
+            <ul class="marquee-content" aria-hidden="true">
+                <li>trade in progress</li>
+            </ul>
+        </div>
+        {% endif %}
+        <div class="item-detail-text">
+            <div><h1>{{item.name}}</h1></div>
+            <div><h3>posted by: {{item.user}}</h3></div>
+            <div>{{item.description}}</div>
+        </div>
+        <div class="item-btns">
+            {% if item.user == user %}
+                {% if curtrade %}
+                    <div class="item-detail-curtrade-detail">
+                        <div>Trade Initiated By: {{curtrade.item_proposed.user}}</div>
+                        <div>Trade For: <a href="{% url 'item_detail' curtrade.item_proposed.id%}" class="decorate-anchor">{{curtrade.item_proposed}}</a></div>
+                        <div>Comments: {% if curtrade.comment %} {{curtrade.comment}} {% else %} no comment {% endif%}</div>
+                    </div>
 
-
-<footer></footer>
+                    <div class="btn-container"><a href="{% url 'trade_approve' curtrade.id %}"><div class="btn dark-grn-bckgrnd">APPROVE TRADE</div></a></div>
+                    <div class="btn-container"><a href="{% url 'trade_reject' curtrade.id %}"><div class="btn dark-grn-bckgrnd">REJECT TRADE</div></a></div>
+                {% else %}
+                    <div class="btn-container"><a href="{% url 'item_update' item.id %}"><div class="btn dark-grn-bckgrnd">EDIT</div></a></div>
+                    <div class="btn-container"><a href="{% url 'item_delete' item.id %}"><div class="btn dark-grn-bckgrnd">DELETE</div></a></div>
+                {% endif %}
+            {% else %}
+                <div class="btn-container"><a href="{% url 'trade_create' item.id %}"><div class="btn dark-grn-bckgrnd">TRADE FOR THIS ITEM</div></a></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

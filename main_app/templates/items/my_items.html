@@ -4,16 +4,46 @@
 {% block content %}
 
 <div class="tab-container">
-    <div class="tab-text"><h1>My Items</h1></div>
+    <div class="tab-text"><h1>MY ITEMS</h1></div>
 </div>
+
 <div class="items-container">
+    <div class="items-grid">
+        {% for item in items %}
+        <a href="{% url 'item_detail' item.id %}">
+            <div class="item-container">
+                <div class="item-img-container">
+                    <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
+                </div>
+                <div class="img-text-container">
+                    <div><h3>{{item.name|upper}}</h3></div>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <div>no items</div>
+        {% endfor%}
+        <div class="new-item-container">
+            <a href="{% url 'item_create' %}">
+                <div class="btn dark-grn-bckgrnd">NEW ITEM</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="items-container">
     {% for item in items %}
-    <div>{{item}}<a href="{% url 'item_update' item.id %}">edit</a><a href="{% url 'item_delete' item.id %}">delete</a></div>
+    
+    <div>
+        <a href="{% url 'item_detail' item.id %}">{{item}}</a>
+        <a href="{% url 'item_update' item.id %}">edit</a>
+        <a href="{% url 'item_delete' item.id %}">delete</a>
+    </div>
     {% empty %}
     <div>No Items</div>
     {% endfor%}
-    <a href="{% url 'item_create' %}">New Item</a>
-</div>
+    
+</div> -->
 
 
 
