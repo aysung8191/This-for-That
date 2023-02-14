@@ -3,9 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 ITEM_STATUS=(
-    ('1','Draft'),
-    ('2','Ready to Trade'),
-    ('3','Traded')
+    ('1','Ready to Trade'),
+    ('2','Traded')
 )
 
 TRADE_STATUS=(
@@ -45,7 +44,13 @@ class Trade(models.Model):
 
     def get_absolute_url(self):
         return reverse('trades_index')
-    
 
-    
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for item_id: {self.item_id} @{self.url}"
+
+
 
