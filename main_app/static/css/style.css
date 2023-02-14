@@ -181,13 +181,12 @@ footer {
 }
 
 .tab-text {
-    padding-left:50px;
+    padding:0 70px 0 50px;
     height: 70%;
     display: flex;
     align-items: center;
     background-color: var(--lavender);
     border-top-right-radius: 80px 80px;
-    width: 20%;
 }
 
 .items-index {
@@ -197,7 +196,6 @@ footer {
 .items-container {
     background-color: var(--lavender);
     padding: 50px;
-    min-height: 50vh;
 }
 
 .items-grid {
@@ -274,6 +272,30 @@ footer {
 .item-detail-curtrade-detail {
     background-color: var(--cream);
     width: 80%;
+}
+
+.trades-container {
+    padding: 50px 50px 0 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.trades-container>h1 {
+    margin:0;
+}
+
+.trade-in-progress {
+    width: fit-content;
+    background-color: var(--chartreuse);
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.trade-done {
+    width: fit-content;
+    border: 1px solid var(--dark-green);
+    margin: 0 40px 20px 0;
+    padding: 40px;
 }
 
 .marquee {
