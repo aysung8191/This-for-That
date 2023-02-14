@@ -13,7 +13,7 @@
     {% if trade.comment %}
     <div>{{trade.comment}}</div>
     {% endif %}
-
+    {{trade.get_status_display}}
     {% if trade.item_primary.user == user %}
     <div><a href="{% url 'trade_approve' trade.id %}">Approve</a><a href="{% url 'trade_reject' trade.id %}">Reject</a></div>
     {% elif trade.item_proposed.user == user %}

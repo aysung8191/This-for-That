@@ -24,6 +24,7 @@
             <div><h1>{{item.name}}</h1></div>
             <div><h3>posted by: {{item.user}}</h3></div>
             <div>{{item.description}}</div>
+        <div>{{item.get_status_display}}</div>
         </div>
         <div class="item-btns">
             {% for trade in item.trade_primary.all %}
