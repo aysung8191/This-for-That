@@ -12,9 +12,15 @@
         {% for item in item_list %}
         <a href="{% url 'item_detail' item.id %}">
             <div class="item-container">
+                {% for photo in item.photo_set.all %}
+                <div class="item-img-container">
+                    <img src="{{photo.url}}">
+                </div>
+                {% empty %}
                 <div class="item-img-container">
                     <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
-                </div>
+                </div>                
+                {% endfor %}
                 <div class="img-text-container">
                     <div><h3>{{item.name|upper}}</h3></div>
                 </div>
