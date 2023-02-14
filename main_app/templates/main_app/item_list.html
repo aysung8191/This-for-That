@@ -6,18 +6,24 @@
 <div class="tab-container">
     <div class="tab-text"><h1>TRADE</h1></div>
 </div>
-<div class="items-container">
-    {% for item in item_list %}
-    <div><a href="{% url 'item_detail' item.id %}">{{item.name}} </a>
-        {% if not item.user == user %}
-        <a href= "{% url 'trade_create' item.id %}">Trade</a>
-        {% endif %}
-    </div>
-    {% empty %}
-    <div>no item</div>
-    {% endfor%}
-</div>
 
-<footer></footer>
+<div class="items-container">
+    <div class="items-grid">
+        {% for item in item_list %}
+        <a href="{% url 'item_detail' item.id %}">
+            <div class="item-container">
+                <div class="item-img-container">
+                    <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
+                </div>
+                <div class="img-text-container">
+                    <div><h3>{{item.name|upper}}</h3></div>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <div>no item</div>
+        {% endfor%}
+    </div>
+</div>
 
 {% endblock %}

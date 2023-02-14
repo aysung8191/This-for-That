@@ -16,13 +16,24 @@ def index(request):
 class ItemsList(ListView):
   model = Item
 
+  def get_context_data(self, **kwargs):
+    context = super(ItemsList, self).get_context_data(**kwargs)
+    items = []
+    if self.request.user.is_authenticated :
+      items = Item.objects.exclude(user = self.request.user)
+    else :
+      items = Item.objects.all() 
+    context['item_list'] = items
+    return context
+
 class MyItemsList(LoginRequiredMixin,ListView):
   model = Item
   template_name = 'items/my_items.html'
+  
   def get_context_data(self, **kwargs):
-        context = super(MyItemsList, self).get_context_data(**kwargs)
-        context['items'] = Item.objects.filter(user = self.request.user)
-        return context
+    context = super(MyItemsList, self).get_context_data(**kwargs)
+    context['items'] = Item.objects.filter(user = self.request.user)
+    return context
   
 class ItemCreate(LoginRequiredMixin, CreateView):
   model = Item
@@ -42,7 +53,18 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
 
 class ItemDetail(DetailView):
   model= Item
-  
+
+  def dispatch(self, request, *args, **kwargs):
+    try:
+      self.cur_trade = Trade.objects.get(item_primary=kwargs['pk'])
+    except:
+      self.cur_trade = ''
+    return super().dispatch(request, *args, **kwargs)
+
+  def get_context_data(self, **kwargs):
+    context = super(ItemDetail, self).get_context_data(**kwargs)
+    context['curtrade'] = self.cur_trade
+    return context  
 
 class TradeDetail(LoginRequiredMixin, DetailView):
   model = Trade
