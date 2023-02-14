@@ -23,7 +23,8 @@ class ItemsList(ListView):
     context = super(ItemsList, self).get_context_data(**kwargs)
     items = []
     if self.request.user.is_authenticated :
-      items = Item.objects.exclude(user = self.request.user)
+      items = Item.objects.exclude(user = self.request.user).exclude(status = '2')
+
     else :
       items = Item.objects.all() 
     context['item_list'] = items
@@ -107,6 +108,12 @@ def trade_approve(request, trade_id):
   trade = Trade.objects.get(id=trade_id)
   trade.status = '2'
   trade.save()
+  item_primary = Item.objects.get(id=trade.item_primary.id)
+  item_primary.status = '2'
+  item_primary.save()
+  item_proposed = Item.objects.get(id=trade.item_proposed.id)
+  item_proposed.status = '2'
+  item_proposed.save()
   return redirect('trades_index')
 
 @login_required

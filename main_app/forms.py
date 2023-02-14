@@ -7,12 +7,12 @@ from .models import Item, Trade
 class TradeForm(ModelForm):
    class Meta:
       model = Trade
-      fields = ['item_proposed', 'comment' , 'status']
+      fields = ['item_proposed', 'comment']
    
    def __init__(self, *args, **kwargs):
       user = kwargs.pop('user')
       super(TradeForm, self).__init__(*args, **kwargs)
-      self.fields['item_proposed'].queryset = Item.objects.filter(user = user)
+      self.fields['item_proposed'].queryset = Item.objects.filter(user = user).exclude(status = '2')
 
 class UserSignUpForm(UserCreationForm):
    class Meta:
