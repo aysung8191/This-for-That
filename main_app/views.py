@@ -56,14 +56,15 @@ class ItemDetail(DetailView):
 
   def dispatch(self, request, *args, **kwargs):
     try:
-      self.cur_trade = Trade.objects.get(item_primary=kwargs['pk'])
+      self.primary_trades = Trade.objects.filter(item_primary=kwargs['pk'])
     except:
-      self.cur_trade = ''
+      self.primary_trades = ''
     return super().dispatch(request, *args, **kwargs)
 
   def get_context_data(self, **kwargs):
     context = super(ItemDetail, self).get_context_data(**kwargs)
-    context['curtrade'] = self.cur_trade
+    print(self.primary_trades)
+    context['primarytrades'] = self.primary_trades
     return context  
 
 class TradeDetail(LoginRequiredMixin, DetailView):
