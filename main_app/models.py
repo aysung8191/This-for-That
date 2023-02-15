@@ -53,8 +53,10 @@ class Photo(models.Model):
         return f"Photo for item_id: {self.item_id} @{self.url}"
     
 
-class Comment(models.Model):
-    comment=models.CharField(max_length=500)
+
+
+
+    
 
 
 
