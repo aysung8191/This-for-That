@@ -59,12 +59,15 @@ class ItemDetail(DetailView):
   model= Item
 
   def dispatch(self, request, *args, **kwargs):
-    self.primary_trades = Trade.objects.filter(item_primary=kwargs['pk'])
+    self.id = kwargs['pk']
     return super().dispatch(request, *args, **kwargs)
 
   def get_context_data(self, **kwargs):
     context = super(ItemDetail, self).get_context_data(**kwargs)
-    context['primarytrades'] = self.primary_trades
+    active_trade_primary = Trade.objects.filter(item_primary=self.id).filter(status='1')
+    active_trade_proposed = Trade.objects.filter(item_proposed=self.id).filter(status='1')
+    context['active_trade_primary'] = active_trade_primary
+    context['active_trade_proposed'] = active_trade_proposed
     return context  
 
 class TradeDetail(LoginRequiredMixin, DetailView):
@@ -91,11 +94,16 @@ class TradeList(LoginRequiredMixin, ListView):
   model = Trade
   def get_context_data(self, **kwargs):
     context = super(TradeList, self).get_context_data(**kwargs)
-    trades = []
+    trades_pending = []
+    trades_closed = []
     for trade in Trade.objects.all():
       if trade.item_primary.user == self.request.user or trade.item_proposed.user == self.request.user:
-        trades.append(trade)
-    context['trade_list'] = trades
+        if trade.status == '1':
+          trades_pending.append(trade)
+        else:
+          trades_closed.append(trade)
+    context['trade_list_pending'] = trades_pending
+    context['trade_list_closed'] = trades_closed
     return context
 
 

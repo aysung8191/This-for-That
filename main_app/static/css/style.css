@@ -236,6 +236,14 @@ footer {
     height: 100%;
 }
 
+.item-traded {
+    width: 80%;
+    background-color: rgb(255, 229, 180);
+    padding: 15px;
+    font-family: space-mono-B;
+    text-align: center;
+}
+
 .item-detail-container {
     background-color: var(--lavender);
     color: var(--dark-green);
