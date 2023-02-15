@@ -135,6 +135,10 @@ footer {
     font-family: space-mono-B;
 }
 
+.spc-bold {
+    font-family: space-mono-B;
+}
+
 .nav-bar, .nav-left, .nav-right {
     display: flex;
 }
@@ -232,6 +236,9 @@ footer {
 .item-container {
     height: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .item-img-container {
@@ -248,7 +255,6 @@ footer {
 }
 
 .img-text-container {
-    height: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;

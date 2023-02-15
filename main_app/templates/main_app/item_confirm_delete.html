@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}<title>Confirm Delete</title>{% endblock %}
 {% block content %}
+<div class="item-detail-container">
   <h1>Delete Item</h1>
 
-  <h4>Are you sure you want to delete {{ item.name }}?</h4>
+  <h4>Are you sure you want to delete <span class="spc-bold">{{ item.name }}</span>?</h4>
 
   <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!">
-    <a href="{% url 'items_myitems' %}">Cancel</a>
+    <input type="submit" value="Yes - Delete!" class="btn dark-grn-bckgrnd">
+    <a href="{% url 'items_myitems' %}" class="btn tan-bckgrnd" >Cancel</a>
   </form>
+</div>
 {% endblock %}
