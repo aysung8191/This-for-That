@@ -5,17 +5,28 @@ from django.contrib.auth.models import User
 from .models import Item, Trade
 
 class ItemForm(ModelForm):
-   photo = forms.FileField()
+   photo = forms.FileField(label='uplaod a photo')
 
    class Meta:
       model = Item 
       fields = ['name', 'description']
 
+   def __init__(self, *args, **kwargs):
+        super(ItemForm, self).__init__(*args, **kwargs)
+        self.fields['photo'].required = False
+   
+   name = forms.CharField(label= '', widget=forms.TextInput(attrs={'placeholder': 'item name'}))
+   description = forms.CharField(label= '', widget=forms.TextInput(attrs={'placeholder': 'item description'}))
+
+
 class TradeForm(ModelForm):
    class Meta:
       model = Trade
       fields = ['item_proposed', 'comment']
+      labels = {'item_proposed' : 'select the item you would like to trade:'}
    
+   comment = forms.CharField(label= '', widget=forms.TextInput(attrs={'placeholder': 'comments for trade'}))
+
    def __init__(self, *args, **kwargs):
       user = kwargs.pop('user')
       super(TradeForm, self).__init__(*args, **kwargs)
