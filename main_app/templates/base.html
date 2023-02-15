@@ -23,7 +23,7 @@
         </div>
         <div class="nav-right">
         {% if user.is_authenticated %}
-            <div><a href="{% url 'logout' %}">log out</a></div>
+            <div><a href="{% url 'logout' %}">log out {{user}}</a></div>
         {% else %}
             <div><a href="{% url 'signup' %}">sign up</a></div>
             <div><a href="{% url 'login' %}">log in</a></div>

@@ -10,38 +10,48 @@
         </div>
     </div>
     <div class="item-right">
-        {% if primarytrades.count or item.trade_proposed.count %}
-        <div class="marquee">
-            <ul class="marquee-content">
-                <li>trade in progress</li>
-            </ul>
-            <ul class="marquee-content" aria-hidden="true">
-                <li>trade in progress</li>
-            </ul>
-        </div>
+        {% if active_trade_primary.count or active_trade_proposed.count %}
+            <div class="marquee">
+                <ul class="marquee-content">
+                    <li>trade in progress</li>
+                </ul>
+                <ul class="marquee-content" aria-hidden="true">
+                    <li>trade in progress</li>
+                </ul>
+            </div>
+        {% elif item.status == '2' %}
+            <div class="item-traded">{{item.get_status_display}}</div>
         {% endif %}
         <div class="item-detail-text">
             <div><h1>{{item.name}}</h1></div>
             <div><h3>posted by: {{item.user}}</h3></div>
             <div>{{item.description}}</div>
-        <div>{{item.get_status_display}}</div>
         </div>
         <div class="item-btns">
             {% for trade in item.trade_primary.all %}
             <div class="item-detail-curtrade-detail">
+                <div>Trade Status: {{trade.get_status_display}}</div>
                 <div>Trade Initiated By: {{trade.item_proposed.user}}</div>
                 <div>Trade For: <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed}}</a></div>
                 <div>Comments: {% if trade.comment %} {{trade.comment}} {% else %} no comment {% endif%}</div>
             </div>
-                {% if item.user == user %}
+                {% if item.user == user and not item.status == '2' %}
                 <div class="btn-container"><a href="{% url 'trade_approve' trade.id %}"><div class="btn dark-grn-bckgrnd">APPROVE TRADE</div></a></div>
                 <div class="btn-container"><a href="{% url 'trade_reject' trade.id %}"><div class="btn dark-grn-bckgrnd">REJECT TRADE</div></a></div>
                 {% endif %}
             {% empty %}
-                {% if item.user == user and item.trade_proposed.count == 0 %}
+                {% if item.user == user and not item.status == '2' and active_trade_proposed.count == 0 %}
                 <div class="btn-container"><a href="{% url 'item_update' item.id %}"><div class="btn dark-grn-bckgrnd">EDIT</div></a></div>
                 <div class="btn-container"><a href="{% url 'item_delete' item.id %}"><div class="btn dark-grn-bckgrnd">DELETE</div></a></div>
                 {% endif %}
+            {% endfor %}
+            {% for trade in active_trade_proposed %}
+                <div class="item-detail-curtrade-detail">
+                    <div>Trade Status: {{trade.get_status_display}}</div>
+                    <div>Trade Initiated By: {{trade.item_proposed.user}}</div>
+                    <div>Trade For: <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed}}</a></div>
+                    <div>Comments: {% if trade.comment %} {{trade.comment}} {% else %} no comment {% endif%}</div>
+                </div>
             {% endfor %}
             {% if not item.user == user and item.trade_proposed.count == 0 %}
             <div class="btn-container"><a href="{% url 'trade_create' item.id %}"><div class="btn dark-grn-bckgrnd">TRADE FOR THIS ITEM</div></a></div>
@@ -52,15 +62,15 @@
 
 {% if item.user == user %}
 {% for photo in item.photo_set.all %}
-<img class="responsive-img card-panel" src="{{photo.url}}">
+<img src="{{photo.url}}">
 {% empty %}
-<div class="card-panel teal-text center-align">No Photos Uploaded</div>
+<div>No Photos Uploaded</div>
 {% endfor %}
 <form action="{% url 'add_photo' item.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
     <input type="file" name="photo-file">
     <br><br>
-    <button type="submit" class="btn">Upload Photo</button>
+    <button type="submit" class="btn dark-grn-bckgrnd">Upload Photo</button>
 </form>
 {% endif %}
 

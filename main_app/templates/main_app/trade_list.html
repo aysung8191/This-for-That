@@ -7,7 +7,7 @@
     <div class="tab-text"><h1>PENDING TRADES</h1></div>
 </div>
 <div class="items-container">
-    {% for trade in trade_list %}
+    {% for trade in trade_list_pending %}
     <div class="trade-in-progress">
         <div>Item I'm Getting: 
             {% if trade.item_primary.user == user %} 
@@ -37,7 +37,7 @@
     <h1>COMPLETED TRADES</h1>
 </div>
 <div class="trades-container">
-    {% for trade in trade_list %}
+    {% for trade in trade_list_closed %}
     <div class="trade-done">
         <div>What I Got: 
             {% if trade.item_primary.user == user %} 
