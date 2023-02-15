@@ -76,6 +76,10 @@ class ItemDetail(DetailView):
     context['active_trade_proposed'] = active_trade_proposed
     return context  
 
+class CommentCreate(LoginRequiredMixin,CreateView):
+  model = Item
+  form_class= Item
+
 class TradeDetail(LoginRequiredMixin, DetailView):
   model = Trade
 
