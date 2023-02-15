@@ -82,6 +82,10 @@ footer {
     box-sizing: border-box;
 }
 
+.upper-margin {
+    margin-top: 20px;
+}
+
 .block-container-30 {
     width: 30%;
 }
@@ -116,6 +120,10 @@ footer {
 
 .dark-grn-bckgrnd {
     background-color: var(--dark-green);
+}
+
+.tan-bckgrnd {
+    background-color: tan;
 }
 
 .hy-sm-i {
@@ -165,13 +173,17 @@ footer {
     background-color: var(--lavender);
 }
 
-.login-form input {
+.login-form input, .login-form select {
     padding: 1.4rem 2rem;
     line-height: 1.2rem;
     letter-spacing: 0.1em;
     font-family: inherit;
     border: 2px solid rgb(224,224,224);
     width: 80%;
+}
+
+.login-form select {
+    margin-top: 10px;
 }
 
 .login-form span {

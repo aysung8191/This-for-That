@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}<title>New Trade</title>{% endblock %}
+{% block bodytag %} class="items-index" {% endblock %}
 {% block content %}
 
-<form action="" method="POST">
+<div class="item-detail-container flex center-container">
+
+<form action="" method="POST" class="login-form">
     {% csrf_token %}
         {{ form.as_p }}
-    <input type="submit" value="create">
+    <input type="submit" value="create"   class="btn dark-grn-bckgrnd ">
 </form>
+
+</div>
 
 {% endblock %}

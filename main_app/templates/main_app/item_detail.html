@@ -43,7 +43,9 @@
             <div class="item-detail-curtrade-detail">
                 <div>Trade Status: {{trade.get_status_display}}</div>
                 <div>Trade Initiated By: {{trade.item_proposed.user}}</div>
-                <div>Trade For: <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed}}</a></div>
+                <div>Trade For: 
+                    <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed}}</a>
+                </div>
                 <div>Comments: {% if trade.comment %} {{trade.comment}} {% else %} no comment {% endif%}</div>
             </div>
                 {% if item.user == user and not item.status == '2' %}
@@ -60,8 +62,13 @@
                 <div class="item-detail-curtrade-detail">
                     <div>Trade Status: {{trade.get_status_display}}</div>
                     <div>Trade Initiated By: {{trade.item_proposed.user}}</div>
-                    <div>Trade For: <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed}}</a></div>
+                    <div>Trade For: 
+                        <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">
+                            {% if trade.item_proposed.id == item.id %} {{ trade.item_primary }} {% else %} {{trade.item_proposed }} {% endif %}
+                        </a>
+                    </div>
                     <div>Comments: {% if trade.comment %} {{trade.comment}} {% else %} no comment {% endif%}</div>
+                    <div><a href="{% url 'trade_detail' trade.id %}" class="decorate-anchor">click for trade details</a></div>
                 </div>
             {% endfor %}
             {% if not item.user == user and item.trade_proposed.count == 0 %}
@@ -71,13 +78,5 @@
     </div>
 </div>
 
-{% if item.user == user and not item.status == '2' %}
-<form action="{% url 'add_photo' item.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <button type="submit" class="btn dark-grn-bckgrnd">Upload Photo</button>
-</form>
-{% endif %}
 
 {% endblock %}

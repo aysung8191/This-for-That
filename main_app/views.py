@@ -54,7 +54,8 @@ class ItemUpdate(LoginRequiredMixin, UpdateView):
 
   def form_valid(self, form):
     result = super().form_valid(form)
-    add_photo(self.request.FILES.get('photo', None),self.object.pk)
+    if self.request.FILES.get('photo', None):
+      add_photo(self.request.FILES.get('photo', None),self.object.pk)
     return result
 
 class ItemDelete(LoginRequiredMixin, DeleteView):

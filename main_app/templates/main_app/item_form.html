@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}<title>New Item</title>{% endblock %}
+{% block bodytag %} class="home" {% endblock %}
 {% block content %}
 
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-        {{ form.as_p }}
-        
-    <input type="submit" value="create">
-</form>
+<div class="item-detail-container flex center-container">
+    <form action="" method="POST" enctype="multipart/form-data" class="login-form">
+        {% csrf_token %}
+            {{ form.as_p }}
+        {% if object %}
+        <input type="submit" value="update item"  class="btn dark-grn-bckgrnd ">
+        {% else %}
+        <input type="submit" value="create item"  class="btn dark-grn-bckgrnd ">
+        {% endif %}
+    </form>
+</div>
 
 {% endblock %}

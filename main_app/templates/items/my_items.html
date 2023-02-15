@@ -47,6 +47,7 @@
     <h1>TRADED ITEMS</h1>
 </div>
 <div class="trades-container">
+    {% if items_traded.count == 0 %} <div>no items</div> {% endif %}
     <div class="items-grid">
         {% for item in items_traded %}
         <a href="{% url 'item_detail' item.id %}">
@@ -67,8 +68,6 @@
                 </div>
             </div>
         </a>
-        {% empty %}
-        <div>no items</div>
         {% endfor%}
     </div>
 </div>
