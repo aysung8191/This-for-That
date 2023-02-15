@@ -6,7 +6,18 @@
 <div class="item-detail-container flex">
     <div class="item-left">
         <div class="item-detail-img-container center-container">
+            {% if item.photo_set.count %}
+                {% with item.photo_set.all|first as image %}
+                    <img src="{{image.url}}">
+                {% endwith %}
+            {% else %}
             <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
+            {% endif %}
+        </div>
+        <div class="flex img-gallery-sm">   
+            {% for image in item.photo_set.all %}
+                <div class="center-container"><img src="{{image.url}}"></div>
+            {% endfor %}
         </div>
     </div>
     <div class="item-right">
@@ -60,12 +71,7 @@
     </div>
 </div>
 
-{% if item.user == user %}
-{% for photo in item.photo_set.all %}
-<img src="{{photo.url}}">
-{% empty %}
-<div>No Photos Uploaded</div>
-{% endfor %}
+{% if item.user == user and not item.status == '2' %}
 <form action="{% url 'add_photo' item.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
     {% csrf_token %}
     <input type="file" name="photo-file">
