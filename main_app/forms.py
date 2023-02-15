@@ -4,6 +4,13 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 from .models import Item, Trade
 
+class ItemForm(ModelForm):
+   photo = forms.FileField()
+
+   class Meta:
+      model = Item 
+      fields = ['name', 'description']
+
 class TradeForm(ModelForm):
    class Meta:
       model = Trade

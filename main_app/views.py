@@ -7,10 +7,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Item, Trade, Photo
-from .forms import UserSignUpForm, UserLoginForm, TradeForm
+from .forms import UserSignUpForm, UserLoginForm, TradeForm, ItemForm
 
 
 def index(request):
@@ -24,7 +23,6 @@ class ItemsList(ListView):
     items = []
     if self.request.user.is_authenticated :
       items = Item.objects.exclude(user = self.request.user).exclude(status = '2')
-
     else :
       items = Item.objects.all() 
     context['item_list'] = items
@@ -36,20 +34,28 @@ class MyItemsList(LoginRequiredMixin,ListView):
   
   def get_context_data(self, **kwargs):
     context = super(MyItemsList, self).get_context_data(**kwargs)
-    context['items'] = Item.objects.filter(user = self.request.user)
+    context['items'] = Item.objects.filter(user = self.request.user).exclude(status = '2')
+    context['items_traded'] = Item.objects.filter(user = self.request.user).filter(status = '2')
     return context
   
 class ItemCreate(LoginRequiredMixin, CreateView):
   model = Item
-  fields = ['name', 'description']
+  form_class = ItemForm
 
   def form_valid(self, form):
     form.instance.user = self.request.user
-    return super().form_valid(form)
+    result = super().form_valid(form)
+    add_photo(self.request.FILES.get('photo', None),self.object.pk)
+    return result
   
 class ItemUpdate(LoginRequiredMixin, UpdateView):
   model = Item
-  fields = ['name', 'description']
+  form_class = ItemForm
+
+  def form_valid(self, form):
+    result = super().form_valid(form)
+    add_photo(self.request.FILES.get('photo', None),self.object.pk)
+    return result
 
 class ItemDelete(LoginRequiredMixin, DeleteView):
   model = Item
@@ -153,22 +159,19 @@ def signup(request):
 class Login(LoginView):
   authentication_form = UserLoginForm
 
-def add_photo(request, item_id):
-    # photo-file will be the "name" attribute on the <input type="file">
-    photo_file = request.FILES.get('photo-file', None)
-    if photo_file:
-        s3 = boto3.client('s3')
-        # need a unique "key" for S3 / needs image file extension too
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        # just in case something goes wrong
-        try:
-            bucket = os.environ['S3_BUCKET']
-            s3.upload_fileobj(photo_file, bucket, key)
-            # build the full url string
-            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-            # we can assign to cat_id or cat (if you have a cat object)
-            Photo.objects.create(url=url, item_id=item_id)
-        except Exception as e:
-            print('An error occurred uploading file to S3')
-            print(e)
-    return redirect('item_detail', pk=item_id)
+def add_photo(photo_file, item_id):
+  s3 = boto3.client('s3')
+  # need a unique "key" for S3 / needs image file extension too
+  key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+  # just in case something goes wrong
+  try:
+      bucket = os.environ['S3_BUCKET']
+      s3.upload_fileobj(photo_file, bucket, key)
+      # build the full url string
+      url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+      # we can assign to cat_id or cat (if you have a cat object)
+      Photo.objects.create(url=url, item_id=item_id)
+  except Exception as e:
+      print('An error occurred uploading file to S3')
+      print(e)
+  return redirect('item_detail', pk=item_id)
