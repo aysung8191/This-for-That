@@ -11,6 +11,7 @@ urlpatterns = [
     path('items/<int:pk>/delete/', views.ItemDelete.as_view(), name='item_delete'),
     path('items/<int:pk>/',views.ItemDetail.as_view(), name="item_detail"),
     path('items/<int:item_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('items/filter', views.filter_items_list, name='filter'),
     path('trades/', views.TradeList.as_view(), name='trades_index' ),
     path('trades/<int:pk>', views.TradeDetail.as_view(), name='trade_detail'),
     path('trades/create/<int:item_id>',views.TradeCreate.as_view(), name ='trade_create'),

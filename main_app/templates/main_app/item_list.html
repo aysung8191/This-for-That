@@ -7,6 +7,21 @@
     <div class="tab-text"><h1>TRADE</h1></div>
 </div>
 
+<div>CATEGORIES</div>
+<form action="{% url 'filter' %}" method="POST">
+    {% csrf_token %}
+    <select name="CATEGORIES">
+        <option value="Clothing">Clothing</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Sporting Goods">Sporting Goods</option>
+        <option value="Jewelry">Jewelry</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Other">Other</option>
+    </select>
+    <input type="submit" value="submit">
+</form>
+
+
 <div class="items-container">
     <div class="items-grid">
         {% for item in item_list %}
