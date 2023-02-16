@@ -109,7 +109,7 @@ class TradeList(LoginRequiredMixin, ListView):
       if trade.item_primary.user == self.request.user or trade.item_proposed.user == self.request.user:
         if trade.status == '1':
           trades_pending.append(trade)
-        else:
+        elif trade.status == '2':
           trades_closed.append(trade)
     context['trade_list_pending'] = trades_pending
     context['trade_list_closed'] = trades_closed
