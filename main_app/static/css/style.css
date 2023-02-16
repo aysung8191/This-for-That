@@ -279,14 +279,19 @@ footer {
     min-height: 50vh;
 }
 
+.gallery-arrows {
+    display: flex;
+    align-items: center;
+}
+
 .img-gallery-sm {
-    max-height: 250px;
-    max-width: 250px;
-    padding-left: 50px;
+    margin: 0 100px 0 50px;
+    flex-wrap: wrap;
 }
 
 .img-gallery-sm div {
-    margin: 15px 15px 15px 0;
+    margin: 15px 15px 0 0;
+    max-width: 100px;
 }
 
 .img-gallery-sm>div>img {
@@ -297,6 +302,10 @@ footer {
 
 .item-left, .item-right {
     width: 50%;
+}
+
+.item-detail-img-container {
+    justify-content: space-between;
 }
 
 .item-detail-img-container, .item-detail-img-container img {

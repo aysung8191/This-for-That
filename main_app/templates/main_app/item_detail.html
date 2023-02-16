@@ -5,18 +5,20 @@
 
 <div class="item-detail-container flex">
     <div class="item-left">
-        <div class="item-detail-img-container center-container">
+        <div class="item-detail-img-container flex">
             {% if item.photo_set.count %}
                 {% with item.photo_set.all|first as image %}
-                    <img src="{{image.url}}">
+                <div class="gallery-arrows"><a href="#" id="arrow-left"><h1><</h1></a></div>
+                    <img src="{{image.url}}" id="cur-img" data-img-id="{{image.id}}">
+                <div class="gallery-arrows"><a href="#" id="arrow-right"><h1>></h1></a></div>
                 {% endwith %}
             {% else %}
             <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
             {% endif %}
         </div>
-        <div class="flex img-gallery-sm">   
+        <div class="flex img-gallery-sm" id="img-gallery">   
             {% for image in item.photo_set.all %}
-                <div class="center-container"><img src="{{image.url}}"></div>
+                <div class="center-container"><img src="{{image.url}}" data-gallery-img-id="{{image.id}}"></div>
             {% endfor %}
         </div>
     </div>
