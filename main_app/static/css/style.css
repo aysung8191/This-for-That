@@ -1,32 +1,32 @@
 /* not currently using */
 @font-face {
     font-family: 'halyard-micro';
-    src: URL('../fonts/halyard\ micro.otf') format('opentype');
+    src: URL('../fonts/halyard-micro.otf') format('opentype');
 }
 /* not currently using */
 @font-face {
     font-family: 'halyard-micro-b';
-    src: URL('../fonts/halyard\ micro\ bold.otf') format('opentype');
+    src: URL('../fonts/halyard-micro-bold.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'halyard-micro-SB';
-    src: URL('../fonts/halyard\ micro\ semibold.otf') format('opentype');
+    src: URL('../fonts/halyard-micro-semibold.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'halyard-micro-SB-I';
-    src: URL('../fonts/halyard\ micro\ semibold\ italic.otf') format('opentype');
+    src: URL('../fonts/halyard-micro-semibold-italic.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'space-mono';
-    src: URL('../fonts/space\ mono.otf') format('opentype');
+    src: URL('../fonts/space-mono.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'space-mono-B';
-    src: URL('../fonts/space\ mono\ bold.otf') format('opentype');
+    src: URL('../fonts/space-mono-bold.otf') format('opentype');
 }
 
 :root {
