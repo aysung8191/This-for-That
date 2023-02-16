@@ -38,7 +38,7 @@ class Item(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('items_myitems')
+        return reverse('item_detail',  kwargs={'pk': self.id})
     
 class Trade(models.Model):
     item_primary=models.ForeignKey(Item, related_name="trade_primary", on_delete=models.CASCADE)
