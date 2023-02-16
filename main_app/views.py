@@ -178,3 +178,10 @@ def add_photo(photo_file, item_id):
       print('An error occurred uploading file to S3')
       print(e)
   return redirect('item_detail', pk=item_id)
+
+def filter_items_list(request):
+  item_list = Item.objects.exclude(user = request.user).exclude(status = '2').filter(category = request.POST['CATEGORIES'])
+  print(request.POST['CATEGORIES'])
+  return render(request, 'main_app/item_list.html', {
+    'item_list': item_list
+  })
