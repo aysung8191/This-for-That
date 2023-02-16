@@ -49,6 +49,7 @@
                     <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed}}</a>
                 </div>
                 <div>Comments: {% if trade.comment %} {{trade.comment}} {% else %} no comment {% endif%}</div>
+                <div><a href="{% url 'trade_detail' trade.id %}" class="decorate-anchor">click for trade details</a></div>
             </div>
                 {% if item.user == user and not item.status == '2' %}
                 <div class="btn-container"><a href="{% url 'trade_approve' trade.id %}"><div class="btn dark-grn-bckgrnd">APPROVE TRADE</div></a></div>
@@ -65,8 +66,11 @@
                     <div>Trade Status: {{trade.get_status_display}}</div>
                     <div>Trade Initiated By: {{trade.item_proposed.user}}</div>
                     <div>Trade For: 
-                        <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">
-                            {% if trade.item_proposed.id == item.id %} {{ trade.item_primary }} {% else %} {{trade.item_proposed }} {% endif %}
+                        {% if trade.item_proposed.id == item.id %} 
+                            <a href="{% url 'item_detail' trade.item_primary.id%}" class="decorate-anchor">{{ trade.item_primary }} </a>
+                        {% else %} 
+                            <a href="{% url 'item_detail' trade.item_proposed.id%}" class="decorate-anchor">{{trade.item_proposed }}</a>
+                        {% endif %}
                         </a>
                     </div>
                     <div>Comments: {% if trade.comment %} {{trade.comment}} {% else %} no comment {% endif%}</div>
