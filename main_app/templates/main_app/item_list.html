@@ -3,23 +3,29 @@
 {% block bodytag %} class="items-index" {% endblock %}
 {% block content %}
 
-<div class="tab-container">
-    <div class="tab-text"><h1>TRADE</h1></div>
+<div class="flex spc-btwn">
+    <div class="tab-container">
+        <div class="tab-text"><h1>TRADE</h1></div>
+    </div>
+    
+    <div class="category-container">
+        <div>
+            <div>CATEGORIES</div>
+            <form action="{% url 'filter' %}" method="POST">
+                {% csrf_token %}
+                <select name="CATEGORIES">
+                    <option value="Clothing">Clothing</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Sporting Goods">Sporting Goods</option>
+                    <option value="Jewelry">Jewelry</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="submit" value="filter" class="btn-sm tan-bckgrnd">
+            </form>  
+        </div>
+    </div>
 </div>
-
-<div>CATEGORIES</div>
-<form action="{% url 'filter' %}" method="POST">
-    {% csrf_token %}
-    <select name="CATEGORIES">
-        <option value="Clothing">Clothing</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Sporting Goods">Sporting Goods</option>
-        <option value="Jewelry">Jewelry</option>
-        <option value="Entertainment">Entertainment</option>
-        <option value="Other">Other</option>
-    </select>
-    <input type="submit" value="submit">
-</form>
 
 
 <div class="items-container">
@@ -28,13 +34,13 @@
         <a href="{% url 'item_detail' item.id %}">
             <div class="item-container">
                 {% if item.photo_set.count %}
-                <div class="item-img-container">
+                <div class="item-img-container extra">
                     {% with item.photo_set.all|first as image %}
                     <img src="{{image.url}}">
                     {% endwith %}
                 </div>
                 {% else %}
-                <div class="item-img-container">
+                <div class="item-img-container extra">
                     <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
                 </div>                
                 {% endif %}

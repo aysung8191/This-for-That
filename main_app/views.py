@@ -24,7 +24,7 @@ class ItemsList(ListView):
     if self.request.user.is_authenticated :
       items = Item.objects.exclude(user = self.request.user).exclude(status = '2')
     else :
-      items = Item.objects.all() 
+      items = Item.objects.all().exclude(status = '2')
     context['item_list'] = items
     return context
 
@@ -180,8 +180,10 @@ def add_photo(photo_file, item_id):
   return redirect('item_detail', pk=item_id)
 
 def filter_items_list(request):
-  item_list = Item.objects.exclude(user = request.user).exclude(status = '2').filter(category = request.POST['CATEGORIES'])
-  print(request.POST['CATEGORIES'])
+  if request.user.is_authenticated:
+    item_list = Item.objects.exclude(user = request.user).exclude(status = '2').filter(category = request.POST['CATEGORIES'])
+  else :
+    item_list = Item.objects.all().exclude(status = '2').filter(category = request.POST['CATEGORIES'])
   return render(request, 'main_app/item_list.html', {
     'item_list': item_list
   })
