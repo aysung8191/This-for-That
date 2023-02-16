@@ -242,6 +242,12 @@ footer {
 
 .home-pg-text {
     margin: 25px;
+    margin: 25px 0 50px 0;
+}
+
+.home-pg img {
+    max-width: 500px;
+    margin: 100px 0 25px 0;
 }
 
 .tab-container {
@@ -294,8 +300,8 @@ footer {
 }
 
 .item-img-container.extra {
-    max-height: 400px;
-    min-height: 400px;
+    max-height: 500px;
+    min-height: 500px;
 }
 
 .item-img-container img {

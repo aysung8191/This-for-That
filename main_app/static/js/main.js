@@ -1,9 +1,20 @@
 const arrows = document.querySelectorAll('.gallery-arrows')
+const homePgLogo = document.getElementById('home-pg-img')
+
+const homePgImgs = [
+    'https://i.imgur.com/XRX4xIa.png',
+    'https://i.imgur.com/zyc4dNI.png',
+    'https://i.imgur.com/OYZ4s9J.png',
+    'https://i.imgur.com/RHonKC0.png',
+]
 
 document.addEventListener('DOMContentLoaded', function() {
-    if (arrows) {
+    if (arrows.length > 0) {
         document.getElementById('arrow-left').addEventListener('click', runCarouseLeft)
         document.getElementById('arrow-right').addEventListener('click', runCarouseRight)
+    }
+    if (homePgLogo) {
+        rotateLogo()
     }
 })
 
@@ -42,4 +53,15 @@ function runCarouseRight(e) {
             }
         }
     }
+}
+
+function rotateLogo() {
+    setInterval( el => {
+        idx = homePgImgs.indexOf(homePgImgs.find(elem => elem === el.src))
+        if (idx === homePgImgs.length-1) {
+            el.src = homePgImgs[0]
+        } else {
+            el.src = homePgImgs[idx+1]
+        }
+    }, 1000, homePgLogo.querySelector('img'))
 }

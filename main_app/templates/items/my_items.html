@@ -23,13 +23,13 @@
         <a href="{% url 'item_detail' item.id %}">
             <div class="item-container">
                 {% if item.photo_set.count %}
-                <div class="item-img-container">
+                <div class="item-img-container extra">
                     {% with item.photo_set.all|first as image %}
                     <img src="{{image.url}}">
                     {% endwith %}
                 </div>
                 {% else %}
-                <div class="item-img-container">
+                <div class="item-img-container extra">
                     <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
                 </div>                
                 {% endif %}
@@ -53,13 +53,13 @@
         <a href="{% url 'item_detail' item.id %}">
             <div class="item-container">
                 {% if item.photo_set.count %}
-                <div class="item-img-container">
+                <div class="item-img-container extra">
                     {% with item.photo_set.all|first as image %}
                     <img src="{{image.url}}">
                     {% endwith %}
                 </div>
                 {% else %}
-                <div class="item-img-container">
+                <div class="item-img-container extra">
                     <img src="https://i0.wp.com/sofiestdesigns.com/wp-content/uploads/2022/05/SilverMushroom.jpg?fit=768%2C768&ssl=1">
                 </div>                
                 {% endif %}
