@@ -1,7 +1,7 @@
 ![00sl-barter2-mobileMasterAt3x](https://user-images.githubusercontent.com/119904805/219517379-6b493d21-3571-4e6a-a14c-c61439dfab3d.jpg)
 
-# THIS for THAT
-THIS for THAT is a community-driven barter portal, where users can come to trade goods with other users on the platform. Like the old saying goes, *"One man's trash is another man's treasure"* - why spend money buying new items, when you can trade your old valuables to someone else for something new? 
+# THIS for *that*
+THIS for *that* is a community-driven barter portal, where users can come to trade goods with other users on the platform. Like the old saying goes, *"One man's trash is another man's treasure"* - why spend money buying new items, when you can trade your old valuables to someone else for something new? 
 
 Our community is growing, with new items being uploaded daily! Join the community here: https://barterportal.herokuapp.com/
 
