@@ -13,7 +13,7 @@ THIS for *that* is a community-driven barter portal, where users can come to tra
 Our community is growing, with new items being uploaded daily! Join the community here: https://barterportal.herokuapp.com/
 
 ## Site Overview:
-Unlike other ecommerce sites like eBay or OfferUp, no money is involved here - the only transactions occuring are item-for-item exchanges.  
+Unlike other ecommerce sites such as eBay or OfferUp, no money is involved here - the only transactions occuring are item-for-item exchanges.  
 
 ![1](https://user-images.githubusercontent.com/119904805/219517155-f1869987-c2e7-4835-a298-adab56f45175.JPG)
 
