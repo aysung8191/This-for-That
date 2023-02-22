@@ -8,7 +8,7 @@
 <br>**Berma Imbert:** Database Manager
 <br>**Augustine Sung:** GitHub Manager, Documenter
 
-**Technologies Used:** Python, JavaScript, Django, AWS, HTML, CSS
+**Technologies Used:** Python, JavaScript, Django, PostgreSQL, AWS, HTML, CSS
 
 THIS for *that* is a community-driven barter portal, where users can come to trade goods with other users on the platform. Like the old saying goes, *"One man's trash is another man's treasure"* - why spend money buying new items, when you can trade your old valuables to someone else for something new? 
 
